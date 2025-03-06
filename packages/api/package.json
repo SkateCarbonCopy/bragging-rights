@@ -1,11 +1,11 @@
 {
     "name": "bragging-rights-api",
     "type": "module",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "node.js and express.js api for bragging rights app",
     "main": "dist/app.js",
     "engines": {
-        "node": ">23.8.0"
+        "node": ">=23.8.0"
     },
     "scripts": {
         "build": "tsc",
@@ -13,7 +13,8 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Colin Gastelle",
-    "license": "ISC",
+    "license": "UNLICENSED",
+    "private": "true",
     "dependencies": {
         "@supabase/supabase-js": "^2.49.1",
         "dotenv": "^16.4.7",
