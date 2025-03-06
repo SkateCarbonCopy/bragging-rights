@@ -4,7 +4,11 @@
     "version": "1.0.0",
     "description": "node.js and express.js api for bragging rights app",
     "main": "dist/app.js",
+    "engines": {
+        "node": ">23.8.0"
+    },
     "scripts": {
+        "build": "tsc",
         "start": "nodemon dist/app.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },

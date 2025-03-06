@@ -7,6 +7,7 @@ import { HttpError } from './models/http-error.js';
 import { Database } from './database.types.js';
 
 const app: Express = express();
+const port = 5000;
 
 configDotenv();
 
@@ -25,4 +26,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     throw error;
 });
 
-app.listen(5000);
+app.listen(port, () => {
+    console.log(`Server listening at http://localhost:{port}`);
+});
