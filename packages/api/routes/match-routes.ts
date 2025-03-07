@@ -1,6 +1,10 @@
 import express, { Router } from 'express';
-import { createMatch } from '../controllers/match.js';
+import {
+    createMatch,
+    createMatchResult
+} from '../controllers/match-controllers.js';
 
 export const matchRouter: Router = express.Router();
 
 matchRouter.post('/', createMatch);
+matchRouter.post('/result', createMatchResult);
