@@ -1,10 +1,26 @@
 import { NextFunction, Request, Response } from 'express';
 import { supabase } from '../app.js';
+import { GetUserParams } from '../types.ts/users.js';
 
 export const getAllUsers = async (req: Request, res: Response) => {
-    const { data, error } = await supabase.from('user').select();
+    const { data } = await supabase.from('user').select();
     res.send(data);
 };
+
+export const getUser = async (req: Request, res: Response, next: NextFunction) => {
+    const { userId } = req.params as unknown as GetUserParams;
+
+    const { data, status, error } = await supabase
+      .from('user')
+      .select('*')
+      .eq('userId', userId);
+
+    if (error) {
+        return next(error);
+    }
+
+    res.status(status).json(data);
+}
 
 export const createUser = async (
     req: Request,
