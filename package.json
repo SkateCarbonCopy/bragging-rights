@@ -1,0 +1,10 @@
+{
+    "name": "bragging-rights",
+    "scripts": {
+        "build": "npm run build --workspace=packages/ui",
+        "dev": "concurrently \"npm run dev --workspace=packages/api\" \"npm run dev --workspace=packages/ui\""
+    },
+    "workspaces": [
+        "packages/*"
+    ]
+}

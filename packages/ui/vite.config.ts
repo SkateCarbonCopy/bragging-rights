@@ -6,6 +6,10 @@ import { defineConfig } from 'vite';
 export default defineConfig({
 	plugins: [sveltekit(), tailwindcss()],
 
+	build: {
+		outDir: 'dist' // This ensures build outputs to 'dist' folder
+	},
+
 	test: {
 		workspace: [
 			{

@@ -32,3 +32,6 @@ app.listen(port, () => {
     console.log();
     console.log(`Server listening at http://localhost:${port}`);
 });
+
+// Export for Vercel
+module.exports = app;
