@@ -1,25 +1,22 @@
 {
-    "builds": [
-        {
-            "src": "packages/api/dist/app.js",
-            "use": "@vercel/node"
-        },
-        {
-            "src": "packages/ui/package.json",
-            "use": "@vercel/static-build",
-            "config": {
-                "distDir": "dist"
-            }
+    "buildCommand": "npm run build --workspace=packages/api && npm run build --workspace=packages/ui",
+    "outputDirectory": "packages/ui/build",
+    "functions": {
+        "packages/api/dist/app.js": {
+            "runtime": "nodejs18.x"
         }
-    ],
+    },
     "routes": [
         {
             "src": "/api/(.*)",
-            "dest": "packages/api/index.js"
+            "dest": "packages/api/dist/app.js"
+        },
+        {
+            "handle": "filesystem"
         },
         {
             "src": "/(.*)",
-            "dest": "packages/ui/dist/$1"
+            "dest": "packages/ui/build/index.html"
         }
     ]
 }

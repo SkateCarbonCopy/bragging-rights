@@ -37,5 +37,8 @@ if (process.env.ENVIRONMENT === ENV.DEV) {
     });
 }
 
-// Export for Vercel
+// For Vercel serverless functions
 export default app;
+
+// Also export as handler for compatibility
+export const handler = app;
