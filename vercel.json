@@ -1,22 +1,25 @@
 {
-    "buildCommand": "npm run build --workspace=packages/api && npm run build --workspace=packages/ui",
-    "outputDirectory": "packages/ui/build",
-    "functions": {
-        "packages/api/dist/app.js": {
-            "runtime": "nodejs18.x"
+    "builds": [
+        {
+            "src": "packages/api/package.json",
+            "use": "@vercel/node",
+            "config": {
+                "includeFiles": ["packages/api/dist/**"]
+            }
+        },
+        {
+            "src": "packages/ui/package.json",
+            "use": "@vercel/static-build"
         }
-    },
+    ],
     "routes": [
         {
             "src": "/api/(.*)",
             "dest": "packages/api/dist/app.js"
         },
         {
-            "handle": "filesystem"
-        },
-        {
             "src": "/(.*)",
-            "dest": "packages/ui/build/index.html"
+            "dest": "packages/ui/"
         }
     ]
 }
