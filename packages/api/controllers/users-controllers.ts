@@ -3,24 +3,28 @@ import { supabase } from '../app.js';
 import { GetUserParams } from '../types.ts/users.js';
 
 export const getAllUsers = async (req: Request, res: Response) => {
-    const { data } = await supabase.from('user').select();
+    const { data } = await supabase.from('User').select();
     res.send(data);
 };
 
-export const getUser = async (req: Request, res: Response, next: NextFunction) => {
+export const getUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     const { userId } = req.params as unknown as GetUserParams;
 
     const { data, status, error } = await supabase
-      .from('user')
-      .select('*')
-      .eq('userId', userId);
+        .from('User')
+        .select('*')
+        .eq('userId', userId);
 
     if (error) {
-        return next(error);
+        return next(JSON.stringify(error));
     }
 
     res.status(status).json(data);
-}
+};
 
 export const createUser = async (
     req: Request,
@@ -34,10 +38,10 @@ export const createUser = async (
         avatarUrl: avatarUrl || null
     };
 
-    const { error } = await supabase.from('user').insert([newUser]);
+    const { error } = await supabase.from('User').insert([newUser]);
 
     if (error) {
-        return next(error);
+        return next(JSON.stringify(error));
     }
 
     res.status(201).json({ user: newUser });

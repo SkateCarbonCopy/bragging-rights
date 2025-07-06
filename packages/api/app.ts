@@ -6,6 +6,7 @@ import { matchRouter } from './routes/match-routes.js';
 import { userRouter } from './routes/users-routes.js';
 import { HttpError } from './models/http-error.js';
 import { Database } from './database.types.js';
+import { ENV } from './types.ts/global.js';
 
 const app: Express = express();
 const port = 5000;
@@ -28,10 +29,13 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     throw error;
 });
 
-app.listen(port, () => {
-    console.log();
-    console.log(`Server listening at http://localhost:${port}`);
-});
+// This is taken care of automatically in vercel/prod
+if (process.env.ENVIRONMENT === ENV.DEV) {
+    app.listen(port, () => {
+        console.log();
+        console.log(`Server listening at http://localhost:${port}`);
+    });
+}
 
 // Export for Vercel
-module.exports = app;
+export default app;

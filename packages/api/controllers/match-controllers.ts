@@ -17,7 +17,7 @@ export const createMatch = async (
 
     let gameTypeId = null;
     const { data } = await supabase
-        .from('gametype')
+        .from('GameType')
         .select('gameTypeId')
         .eq('name', gameType);
 
@@ -29,7 +29,7 @@ export const createMatch = async (
         return next('GameType ID not found.');
     }
 
-    const { error, status, statusText } = await supabase.from('match').insert({
+    const { error, status, statusText } = await supabase.from('Match').insert({
         gameTypeId,
         playedAt,
         hasAsterisk,
@@ -37,7 +37,7 @@ export const createMatch = async (
     });
 
     if (error) {
-        return next(error);
+        return next(JSON.stringify(error));
     }
 
     res.status(status).json(statusText);
@@ -60,11 +60,11 @@ export const createMatchResult = async (
     });
 
     const { error } = await supabase
-        .from('matchplayer')
+        .from('MatchPlayer')
         .upsert(formattedPlayers);
 
     if (error) {
-        return next(error);
+        return next(JSON.stringify(error));
     }
 
     res.status(201).json({ players: formattedPlayers });
